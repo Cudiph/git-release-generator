@@ -14,7 +14,7 @@ try {
 let template = '';
 const program = new Command();
 const opts = program
-  .version('0.1.0')
+  .version('1.0.0')
   .arguments('[template...]')
   .description('Use template to customize the output. Default to "{subject} ({hash})", available tags are {subject}, {hash}, {author}')
   .action((args: string[]) => { template = args.length ? args.join(' ') : '{subject} ({hash})' })

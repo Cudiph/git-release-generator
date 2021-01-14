@@ -1,6 +1,6 @@
 {
   "name": "git-release-generator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Simple and flexible cli to generate release notes from git commit history",
   "main": "./bin/main.js",
   "scripts": {
