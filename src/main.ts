@@ -40,7 +40,7 @@ const sliceHash = opts.sliceHash || 7;
 const ignore = new RegExp(opts.ignore);
 let provider: string;
 let limiter: number;
-let file = fs.createWriteStream(`./release${tagList[0] || Math.random() * 2e4}.md`);
+let file = fs.createWriteStream(`./release${tagList[0] || '0.0.0'}.md`);
 
 if (remote && remote[1].includes('github.com'))
   provider = `${remote[1].replace(/(?:.git\/?)?$/, '')}/commit/`;
@@ -58,7 +58,9 @@ else
 if (opts.unreleased) {
   const tagDate = child.execSync(`git log --pretty=%cs -1`).toString();
 
-  const gitLog = child.execSync(`git log --pretty=%s%n%H%n%an__SPLITTER__ ...${tagList[0]}`).toString().split(/__SPLITTER__\s*/);
+  let gitLog: string[];
+  if (tagList.length) gitLog = child.execSync(`git log --pretty=%s%n%H%n%an__SPLITTER__ ...${tagList[0]}`).toString().split(/__SPLITTER__\s*/);
+  else gitLog = child.execSync(`git log --pretty=%s%n%H%n%an__SPLITTER__`).toString().split(/__SPLITTER__\s*/);
   gitLog.pop();
 
   file.write(`### unreleased / ${tagDate}\n`);
